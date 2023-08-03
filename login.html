@@ -39,7 +39,34 @@
     const loginEndpoint = 'http://localhost:8080/http://192.168.18.5:9091/mwe/auth/login';
  // Replace with the actual login endpoint URL
 
-    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+ 
+//  <!-- ... Rest of the HTML code ... -->
+
+//   // Your login form JavaScript code here
+//   document.getElementById('loginForm').addEventListener('submit', async (event) => {
+//     event.preventDefault();
+
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
+
+//     try {
+//       const response = await axios.post('http://192.168.18.5:9091/mwe/auth/login', {
+//         user_name: username,
+//         password: password
+//       });
+
+//       // Handle the response here (e.g., redirect to incoming mails page on success)
+//       if (response.status === 200) {
+//         window.location.href = 'incoming_mails.html'; // Redirect to incoming mails page
+//       }
+//     } catch (error) {
+//       // Handle the error here (e.g., display error message on login failure)
+//       console.error('Login failed:', error.message);
+//       document.getElementById('loginFeedback').innerText = 'Login failed. Please check your credentials.';
+//     }
+//   }); 
+ 
+ document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
