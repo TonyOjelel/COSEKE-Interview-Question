@@ -48,6 +48,9 @@
         "password": password
       };
 
+      // Log the API response to the browser console
+      console.log(response);
+
       try {
         // Send a POST request to the login endpoint
         const response = await axios.post(loginEndpoint, credentials);
