@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Incoming Mails</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <h3>Incoming Mails</h3>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Sender</th>
+              <th>Subject</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="mailTableBody">
+            <!-- Mail data will be dynamically populated here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const incomingMailsEndpoint = 'http://192.168.18.5:9091/mwe/incoming/getIncomingMails'; // Replace with the actual incoming mails endpoint URL
+
+    // Get the Bearer token from the provided token
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJnYXNpaW13ZSIsImlhdCI6MTY5MTA2NjQ5MiwiZXhwIjoxNjkxMDg0NDkyfQ.V3VwfAtLbLaZaI04Ok2V-h_3RZ22P-LpHWdrSKtnpOY';
+
+    // Function to fetch and display incoming mails in the table
+    async function displayIncomingMails() {
+      try {
+        // Send a GET request with the Bearer token in the Authorization header
+        const response = await axios.get(incomingMailsEndpoint, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        const mails = response.data; // Assuming the API response is an array of mail objects
+
+        // Populate the table with the mail data
+        const mailTableBody = document.getElementById('mailTableBody');
+        mailTableBody.innerHTML = ''; // Clear existing content
+        mails.forEach(mail => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${mail.sender}</td>
+            <td>${mail.subject}</td>
+            <td>${mail.date}</td>
+          `;
+          mailTableBody.appendChild(row);
+        });
+      } catch (error) {
+        // Handle errors or authentication failures here
+        console.error(error);
+      }
+    }
+
+    // Call the function to fetch and display incoming mails on page load
+    displayIncomingMails();
+  </script>
+</body>
+</html>
